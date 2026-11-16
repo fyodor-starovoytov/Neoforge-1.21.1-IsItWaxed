@@ -10,17 +10,20 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.RegisterItemDecorationsEvent;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 
-@Mod(value = IsItWaxed.MOD_ID, dist = Dist.CLIENT)
-@EventBusSubscriber(modid = IsItWaxed.MOD_ID, value = Dist.CLIENT)
+@Mod(value = IsItWaxedClient.MOD_ID, dist = Dist.CLIENT)
+@EventBusSubscriber(modid = IsItWaxedClient.MOD_ID, value = Dist.CLIENT)
 public class IsItWaxedClient {
-    public IsItWaxedClient(ModContainer container) {
-        container.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
+    public static final String MOD_ID = "isitwaxed";
 
+    public IsItWaxedClient(ModContainer modContainer) {
+        modContainer.registerConfig(ModConfig.Type.CLIENT, ClientConfig.SPEC);
+        modContainer.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
     }
 
     @SubscribeEvent
@@ -29,7 +32,7 @@ public class IsItWaxedClient {
 
 
     private static final ResourceLocation OVERLAY_TEXTURE =
-            ResourceLocation.fromNamespaceAndPath(IsItWaxed.MOD_ID, "textures/gui/waxed_overlay.png");
+            ResourceLocation.fromNamespaceAndPath(IsItWaxedClient.MOD_ID, "textures/gui/waxed_overlay.png");
 
     @SubscribeEvent
     public static void registerItemDecorators(RegisterItemDecorationsEvent event) {
