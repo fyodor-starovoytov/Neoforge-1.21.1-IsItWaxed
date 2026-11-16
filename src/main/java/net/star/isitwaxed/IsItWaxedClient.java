@@ -45,7 +45,20 @@ public class IsItWaxedClient {
                     guiGraphics.pose().pushPose();
                     guiGraphics.pose().translate(0, 0, 200.0F);
 
-                    guiGraphics.blit(OVERLAY_TEXTURE, x, y, 0, 0, 16, 16, 16, 16);
+                    switch (ClientConfig.OVERLAY_CORNER.getAsInt()){
+                        case 1:
+                            guiGraphics.blit(OVERLAY_TEXTURE, x+1, y+1, 0, 0, 3, 3, 3, 3);
+                            break;
+                        case 2:
+                            guiGraphics.blit(OVERLAY_TEXTURE, x+12, y+1, 0, 0, 3, 3, 3, 3);
+                            break;
+                        case 3:
+                            guiGraphics.blit(OVERLAY_TEXTURE, x+1, y+12, 0, 0, 3, 3, 3, 3);
+                            break;
+                        case 4:
+                            guiGraphics.blit(OVERLAY_TEXTURE, x+12, y+12, 0, 0, 3, 3, 3, 3);
+                            break;
+                    }
 
                     guiGraphics.pose().popPose();
                     RenderSystem.disableBlend();
