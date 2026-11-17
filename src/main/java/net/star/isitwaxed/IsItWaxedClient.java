@@ -63,11 +63,11 @@ public class IsItWaxedClient {
 
                     if (ClientConfig.OVERLAY_TYPE.getAsInt() == 2) {
                         guiGraphics.pose().pushPose();
-                        guiGraphics.pose().translate(1.6f - x, 1.6f, 0);
+
+                        guiGraphics.pose().translate(x - 1.6, y - 1.6, -10);
                         guiGraphics.pose().scale(1.1f,1.1f,1.1f);
                         guiGraphics.setColor(1f, 1f, 0f, 1f);
-                        guiGraphics.renderFakeItem(stack, x, y);
-
+                        guiGraphics.renderFakeItem(stack, 0, 0);
                         //Render back
                         guiGraphics.setColor(1.0f, 1.0f, 1.0f, 1.0f);
                     }
