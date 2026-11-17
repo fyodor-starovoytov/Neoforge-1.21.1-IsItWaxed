@@ -42,22 +42,34 @@ public class IsItWaxedClient {
                     RenderSystem.enableBlend();
                     RenderSystem.defaultBlendFunc();
 
-                    guiGraphics.pose().pushPose();
-                    guiGraphics.pose().translate(0, 0, 200.0F);
+                    if (ClientConfig.OVERLAY_TYPE.getAsInt() == 1) {
+                        guiGraphics.pose().pushPose();
+                        guiGraphics.pose().translate(0, 0, 200.0F);
+                        switch (ClientConfig.OVERLAY_CORNER.getAsInt()) {
+                            case 1:
+                                guiGraphics.blit(OVERLAY_TEXTURE, x + 1, y + 1, 0, 0, 3, 3, 3, 3);
+                                break;
+                            case 2:
+                                guiGraphics.blit(OVERLAY_TEXTURE, x + 12, y + 1, 0, 0, 3, 3, 3, 3);
+                                break;
+                            case 3:
+                                guiGraphics.blit(OVERLAY_TEXTURE, x + 1, y + 12, 0, 0, 3, 3, 3, 3);
+                                break;
+                            case 4:
+                                guiGraphics.blit(OVERLAY_TEXTURE, x + 12, y + 12, 0, 0, 3, 3, 3, 3);
+                                break;
+                        }
+                    }
 
-                    switch (ClientConfig.OVERLAY_CORNER.getAsInt()){
-                        case 1:
-                            guiGraphics.blit(OVERLAY_TEXTURE, x+1, y+1, 0, 0, 3, 3, 3, 3);
-                            break;
-                        case 2:
-                            guiGraphics.blit(OVERLAY_TEXTURE, x+12, y+1, 0, 0, 3, 3, 3, 3);
-                            break;
-                        case 3:
-                            guiGraphics.blit(OVERLAY_TEXTURE, x+1, y+12, 0, 0, 3, 3, 3, 3);
-                            break;
-                        case 4:
-                            guiGraphics.blit(OVERLAY_TEXTURE, x+12, y+12, 0, 0, 3, 3, 3, 3);
-                            break;
+                    if (ClientConfig.OVERLAY_TYPE.getAsInt() == 2) {
+                        guiGraphics.pose().pushPose();
+                        guiGraphics.pose().translate(1.6f - x, 1.6f, 0);
+                        guiGraphics.pose().scale(1.1f,1.1f,1.1f);
+                        guiGraphics.setColor(1f, 1f, 0f, 1f);
+                        guiGraphics.renderFakeItem(stack, x, y);
+
+                        //Render back
+                        guiGraphics.setColor(1.0f, 1.0f, 1.0f, 1.0f);
                     }
 
                     guiGraphics.pose().popPose();

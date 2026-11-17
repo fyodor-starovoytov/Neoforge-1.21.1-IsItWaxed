@@ -13,6 +13,11 @@ public class ClientConfig {
             .translation("isitwaxed.config.overlay_corner")
             .defineInRange("overlay_corner", 2, 1, 4);
 
+    public static final ModConfigSpec.IntValue OVERLAY_TYPE = BUILDER
+            .comment("1. Small flower\n2. Yellow outline")
+            .translation("isitwaxed.config.overlay_type")
+            .defineInRange("overlay_type", 2, 1, 2);
+
 
     public static final ModConfigSpec SPEC = BUILDER.build();
 }
