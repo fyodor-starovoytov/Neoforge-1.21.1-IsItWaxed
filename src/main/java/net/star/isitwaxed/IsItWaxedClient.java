@@ -109,6 +109,11 @@ public class IsItWaxedClient {
                 int z = 1;
 
                 for (Item item : decorativeItems) {
+
+                    if (y > screen.height / 8 * 7){
+                        return;
+                    }
+
                     GuiGraphics guiGraphics = event.getGuiGraphics();
                     guiGraphics.pose().pushPose();
                     guiGraphics.pose().translate(x, y, z);
@@ -126,9 +131,6 @@ public class IsItWaxedClient {
                         y += 18;
                     }
 
-                    if (y > screen.height){
-                        break;
-                    }
                 }
 
 
