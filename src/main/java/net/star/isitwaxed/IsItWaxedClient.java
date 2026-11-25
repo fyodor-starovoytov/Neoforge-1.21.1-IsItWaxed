@@ -106,7 +106,7 @@ public class IsItWaxedClient {
 
                 int x = screen.width / 4;
                 int y = screen.height / 2;
-                int z = 1000;
+                int z = 1;
 
                 for (Item item : decorativeItems) {
                     GuiGraphics guiGraphics = event.getGuiGraphics();
@@ -124,6 +124,10 @@ public class IsItWaxedClient {
                     if (x > screen.width / 4 * 3) {
                         x = screen.width / 4;
                         y += 18;
+                    }
+
+                    if (y > screen.height){
+                        break;
                     }
                 }
 
