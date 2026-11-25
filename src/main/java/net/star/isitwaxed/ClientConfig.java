@@ -1,7 +1,5 @@
 package net.star.isitwaxed;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.common.ModConfigSpec;
 
 public class ClientConfig {
