@@ -1,4 +1,9 @@
 {
   "isitwaxed.config.overlay_corner": "Overlay Display Corner",
   "isitwaxed.config.overlay_type": "Overlay Display Type",
+  "isitwaxed.config.overlay_type.tooltip": "0. Disable\n1. Small flower\n2. Yellow outline\n3. Yellow frame",
+  "isitwaxed.configuration.section.isitwaxed.client.toml.title": "Is It Waxed?",
+  "isitwaxed.config.overlay_corner.tooltip": "1. Upper-left\n2. Upper-right\n3. Bottom-left\n4. Bottom-right",
+  "isitwaxed.configuration.title": "Is It Waxed?",
+  "isitwaxed.configuration.section.isitwaxed.client.toml": "Is It Waxed?"
 }
