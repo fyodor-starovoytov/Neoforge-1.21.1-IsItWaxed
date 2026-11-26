@@ -1,9 +1,6 @@
 package net.star.isitwaxed;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
@@ -102,37 +99,7 @@ public class IsItWaxedClient {
         if (event.getScreen() instanceof ConfigurationScreen.ConfigurationSectionScreen configurationScreen) {
             if (configurationScreen.getTitle().getString().toLowerCase().contains("is it waxed")) {
 
-                Screen screen = event.getScreen();
-
-                int x = screen.width / 4;
-                int y = screen.height / 2;
-                int z = 1;
-
-                for (Item item : decorativeItems) {
-
-                    if (y > screen.height / 8 * 7){
-                        return;
-                    }
-
-                    GuiGraphics guiGraphics = event.getGuiGraphics();
-                    guiGraphics.pose().pushPose();
-                    guiGraphics.pose().translate(x, y, z);
-
-                    ItemStack toRender = new ItemStack(item);
-                    guiGraphics.renderItem(toRender, 0, 0);
-
-                    guiGraphics.renderItemDecorations(Minecraft.getInstance().font, toRender, 0, 0);
-                    guiGraphics.pose().popPose();
-
-                    x += 18;
-
-                    if (x > screen.width / 4 * 3) {
-                        x = screen.width / 4;
-                        y += 18;
-                    }
-
-                }
-
+                decorativeItems.renderPreviewDecorativeItems(event.getScreen(), event.getGuiGraphics());
 
             }
         }
