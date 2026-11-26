@@ -1,7 +1,9 @@
 package net.star.isitwaxed;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -89,6 +91,16 @@ public class IsItWaxedClient {
     public static void renderScreenEvent(ScreenEvent.Render.Post event) {
         if (event.getScreen() instanceof ConfigurationScreen.ConfigurationSectionScreen configurationScreen) {
             if (configurationScreen.getTitle().getString().toLowerCase().contains("is it waxed")) {
+                if (Minecraft.getInstance().level == null) {
+                    event.getGuiGraphics().centeredText(
+                            Minecraft.getInstance().font,
+                            Component.literal("Open config in-world to preview item overlays"),
+                            event.getScreen().width / 2,
+                            event.getScreen().height / 3,
+                            0xFFFAFFAF
+                    );
+                    return;
+                }
                 decorativeItems.renderPreviewDecorativeItems(event.getScreen(), event.getGuiGraphics());
             }
         }
