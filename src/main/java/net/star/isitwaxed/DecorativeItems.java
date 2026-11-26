@@ -17,7 +17,7 @@ public class DecorativeItems extends ArrayList<Item> {
     public void renderPreviewDecorativeItems(Screen screen, GuiGraphics guiGraphics){
 
         int x = screen.width / 4;
-        int y = screen.height / 3;
+        int y = (int) (screen.height / 2.5);
         int z = 1;
 
         for (Item item : this) {
