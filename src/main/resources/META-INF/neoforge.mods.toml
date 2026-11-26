@@ -1,0 +1,22 @@
+
+license="${mod_license}"
+
+[[mods]] #mandatory
+
+modId="${mod_id}" #mandatory
+
+version="${mod_version}" #mandatory
+
+displayName="${mod_name}" #mandatory
+
+authors="STARFE"
+
+description='''
+Wait, was this block waxed?
+'''
+logoFile="isitwaxedlogo.png"
+#[[mixins]]
+#config="${mod_id}.mixins.json"
+
+#[[accessTransformers]]
+#file="META-INF/accesstransformer.cfg"

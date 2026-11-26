@@ -1,7 +1,7 @@
 package net.star.isitwaxed;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -14,10 +14,10 @@ public class DecorativeItems extends ArrayList<Item> {
         return new ItemStack(this.get(index));
     }
 
-    public void renderPreviewDecorativeItems(Screen screen, GuiGraphics guiGraphics){
+    public void renderPreviewDecorativeItems(Screen screen, GuiGraphicsExtractor guiGraphics){
 
         int x = screen.width / 4;
-        int y = screen.height / 2;
+        int y = screen.height / 3;
         int z = 1;
 
         for (Item item : this) {
@@ -26,14 +26,13 @@ public class DecorativeItems extends ArrayList<Item> {
                 return;
             }
 
-            guiGraphics.pose().pushPose();
-            guiGraphics.pose().translate(x, y, z);
+            guiGraphics.pose().pushMatrix();
+            guiGraphics.pose().translate(x, y);
 
             ItemStack toRender = new ItemStack(item);
-            guiGraphics.renderItem(toRender, 0, 0);
-
-            guiGraphics.renderItemDecorations(Minecraft.getInstance().font, toRender, 0, 0);
-            guiGraphics.pose().popPose();
+            guiGraphics.item(toRender, 0, 0);
+            guiGraphics.itemDecorations(Minecraft.getInstance().font, toRender, 0, 0);
+            guiGraphics.pose().popMatrix();
 
             x += 18;
 
