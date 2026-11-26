@@ -5,38 +5,31 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.ModContainer;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.fml.common.Mod;
-import net.neoforged.fml.config.ModConfig;
-import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
-import net.neoforged.neoforge.client.event.RegisterItemDecorationsEvent;
-import net.neoforged.neoforge.client.event.ScreenEvent;
-import net.neoforged.neoforge.client.gui.ConfigurationScreen;
-import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.RegisterItemDecorationsEvent;
+import net.minecraftforge.client.event.ScreenEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModContainer;
+import net.minecraftforge.fml.ModLoadingContext;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
-@Mod(value = IsItWaxedClient.MOD_ID, dist = Dist.CLIENT)
-@EventBusSubscriber(modid = IsItWaxedClient.MOD_ID, value = Dist.CLIENT)
+@Mod(IsItWaxedClient.MOD_ID)
+@Mod.EventBusSubscriber(modid = IsItWaxedClient.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class IsItWaxedClient {
     public static final String MOD_ID = "isitwaxed";
-    private static final DecorativeItems decorativeItems = new DecorativeItems();
     private static final ResourceLocation OVERLAY_TEXTURE =
-            ResourceLocation.fromNamespaceAndPath(IsItWaxedClient.MOD_ID, "textures/gui/waxed_overlay.png");
+            new ResourceLocation(IsItWaxedClient.MOD_ID, "textures/gui/waxed_overlay.png");
     private static final ResourceLocation OVERLAY_FRAME_TEXTURE =
-            ResourceLocation.fromNamespaceAndPath(IsItWaxedClient.MOD_ID, "textures/gui/waxed_overlay_frame.png");
+            new ResourceLocation(IsItWaxedClient.MOD_ID, "textures/gui/waxed_overlay_frame.png");
 
-
-    public IsItWaxedClient(ModContainer modContainer) {
-        modContainer.registerConfig(ModConfig.Type.CLIENT, ClientConfig.SPEC);
-        modContainer.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
+    public IsItWaxedClient() {
+        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ClientConfig.SPEC);
     }
 
     @SubscribeEvent
-    static void onClientSetup(FMLClientSetupEvent event) {
-        getItems();
-    }
+    static void onClientSetup(FMLClientSetupEvent event) {}
 
     @SubscribeEvent
     public static void registerItemDecorators(RegisterItemDecorationsEvent event) {
@@ -46,11 +39,11 @@ public class IsItWaxedClient {
                     RenderSystem.enableBlend();
                     RenderSystem.defaultBlendFunc();
 
-                    //Flower
-                    if (ClientConfig.OVERLAY_TYPE.getAsInt() == 1) {
+                    // Flower
+                    if (ClientConfig.OVERLAY_TYPE.get() == 1) {
                         guiGraphics.pose().pushPose();
                         guiGraphics.pose().translate(0, 0, 200.0F);
-                        switch (ClientConfig.OVERLAY_CORNER.getAsInt()) {
+                        switch (ClientConfig.OVERLAY_CORNER.get()) {
                             case 1:
                                 guiGraphics.blit(OVERLAY_TEXTURE, x + 1, y + 1, 0, 0, 3, 3, 3, 3);
                                 break;
@@ -67,20 +60,17 @@ public class IsItWaxedClient {
                         guiGraphics.pose().popPose();
                     }
 
-                    //Outline
-                    if (ClientConfig.OVERLAY_TYPE.getAsInt() == 2) {
-
+                    // Outline
+                    if (ClientConfig.OVERLAY_TYPE.get() == 2) {
                         guiGraphics.pose().pushPose();
                         guiGraphics.setColor(1f, 1f, 0f, 1f);
                         guiGraphics.renderFakeItem(stack, x, y);
-
                         guiGraphics.setColor(1.0f, 1.0f, 1.0f, 1.0f);
                         guiGraphics.pose().popPose();
-
                     }
 
-                    //Frame
-                    if (ClientConfig.OVERLAY_TYPE.getAsInt() == 3) {
+                    // Frame
+                    if (ClientConfig.OVERLAY_TYPE.get() == 3) {
                         guiGraphics.pose().pushPose();
                         guiGraphics.blit(OVERLAY_FRAME_TEXTURE, x, y, 0, 0, 16, 16, 16, 16);
                         guiGraphics.pose().popPose();
@@ -91,25 +81,6 @@ public class IsItWaxedClient {
 
                 return false;
             });
-        }
-    }
-
-    @SubscribeEvent
-    public static void renderScreenEvent(ScreenEvent.Render.Post event) {
-        if (event.getScreen() instanceof ConfigurationScreen.ConfigurationSectionScreen configurationScreen) {
-            if (configurationScreen.getTitle().getString().toLowerCase().contains("is it waxed")) {
-
-                decorativeItems.renderPreviewDecorativeItems(event.getScreen(), event.getGuiGraphics());
-
-            }
-        }
-    }
-
-    private static void getItems() {
-        for (Item item : BuiltInRegistries.ITEM) {
-            if (isWaxedByName(new ItemStack(item))) {
-                decorativeItems.add(item);
-            }
         }
     }
 
